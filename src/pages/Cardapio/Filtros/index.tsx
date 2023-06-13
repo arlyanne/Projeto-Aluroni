@@ -1,17 +1,33 @@
+import React from 'react';
 import filtros from './filtros.json';
 import styles from './Filtros.module.scss'
+import classNames from 'classnames';
 
 type IOpcao = typeof filtros[0];
 
 
-export default function Filtros(){
+interface Props  {
+    filtro: number | null;
+    setFiltro: React.Dispatch<React.SetStateAction<number | null>>
+}
 
-    function selecionarFiltro(opcao: IOpcao) {}
+export default function Filtros({filtro, setFiltro }: Props) {
 
+    function selecionarFiltro(opcao: IOpcao) {
+        if(filtro === opcao.id) return setFiltro(null); //Se meu filtro for igual a opcao.id(opcao que selecionamos) da retorno null pois o mesmo entente que ja esta selecionado ai ele deseleciona.
+        
+        return setFiltro(opcao.id);
+    }
     return (
         <div className={styles.filtros}>
             {filtros.map((opcao) => (
-                <button className={styles.filtros__filtros} key={opcao.id} onClick={() => selecionarFiltro(opcao)}>
+                <button 
+                className={classNames({
+                    [styles.filtros__filtro]: true,
+                    [styles['filtros__filtro--ativo']]: filtro === opcao.id
+                })} 
+                key={opcao.id} 
+                onClick={() => selecionarFiltro(opcao)}>
                     {opcao.label}
                 </button>
             ))}

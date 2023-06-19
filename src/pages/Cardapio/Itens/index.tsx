@@ -1,5 +1,5 @@
 import Item from './Item';
-import cardapio from './intens.json';
+import cardapio from 'data/cardapio.json';
 import styles from './Itens.module.scss';
 import { useState, useEffect} from 'react';
 
